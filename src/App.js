@@ -1,20 +1,27 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useRef } from 'react';
+
 import Navbar from './components/Navbar';
 import About from './pages/About';
 import Aboutus from './components/Aboutus';
 import WhyChooseUs from './components/WhyChooseUs';
 import Mission from './components/Mission';
-import LoginSuccess from './pages/LoginSuccess';
-
-import Workouts from './pages/Workouts';
-
-import './App.css';
 import Dashboard from './pages/Dashboard';
+import Workouts from './pages/Workouts';
+import Nutrition from './pages/Nutrition';
+import BMICalculator from './pages/BMICalculator';
+import MythBusters from './pages/MythBusters';
 import AIRecommendations from './pages/AIRecommendations';
 import Settings from './pages/Settings';
-import Nutrition from './pages/Nutrition';
-import Progress from './pages/Progress';
+
+// Newly added pages
+import ExercisePage from './pages/ExercisePage';
+import TrainingPlansPage from './pages/TrainingPlansPage';
+import WorkoutDetailPage from './pages/WorkoutDetailPage';
+import WorkoutDayPage from './pages/WorkoutDayPage';
+import RecipeDetail from './pages/RecipeDetail';
+
+import './App.css';
 
 function App() {
   const aboutRef = useRef(null);
@@ -22,54 +29,42 @@ function App() {
   const whyChooseUsRef = useRef(null);
   const missionRef = useRef(null);
 
-  const scrollToAbout = () => {
-    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToAboutus = () => {
-    aboutusRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToWhyChooseUs = () => {
-    whyChooseUsRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToMission = () => {
-    missionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollToAbout = () => aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToAboutus = () => aboutusRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToWhyChooseUs = () => whyChooseUsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToMission = () => missionRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={
           <>
-            <Navbar 
+            <Navbar
               scrollToAbout={scrollToAbout}
               scrollToAboutus={scrollToAboutus}
               scrollToWhyChooseUs={scrollToWhyChooseUs}
               scrollToMission={scrollToMission}
             />
-            <div ref={aboutRef}>
-              <About />
-            </div>
-            <div ref={aboutusRef}>
-              <Aboutus />
-            </div>
-            <div ref={whyChooseUsRef}>
-              <WhyChooseUs />
-            </div>
-            <div ref={missionRef}>
-              <Mission scrollToAbout={scrollToAbout} />
-            </div>
+            <div ref={aboutRef}><About /></div>
+            <div ref={aboutusRef}><Aboutus /></div>
+            <div ref={whyChooseUsRef}><WhyChooseUs /></div>
+            <div ref={missionRef}><Mission scrollToAbout={scrollToAbout} /></div>
           </>
         } />
-        {/*<Route path="/login-success" element={<LoginSuccess />} />*/}
         <Route path="/dashboards" element={<Dashboard />} />
         <Route path="/workouts" element={<Workouts />} />
         <Route path="/nutrition" element={<Nutrition />} />
-        <Route path="/progress" element={<Progress />} />
+        <Route path="/bmicalculator" element={<BMICalculator />} />
+        <Route path="/myth-busters" element={<MythBusters />} />
         <Route path="/ai-recommendations" element={<AIRecommendations />} />
         <Route path="/settings" element={<Settings />} />
+
+        {/* 👇 New dynamic workout routes */}
+        <Route path="/workout/:type" element={<WorkoutDetailPage />} />
+        <Route path="/workout/:type/plans" element={<TrainingPlansPage />} />
+        <Route path="/workout/:type/:day" element={<WorkoutDayPage />} />
+        <Route path="/workout/:type/:day/exercise" element={<ExercisePage />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
       </Routes>
     </Router>
   );

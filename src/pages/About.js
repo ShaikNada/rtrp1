@@ -9,8 +9,10 @@ const About = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.setItem("userEmail", email); // Store email
     navigate('/dashboards');
   };
+  
 
   return (
     <div style={{

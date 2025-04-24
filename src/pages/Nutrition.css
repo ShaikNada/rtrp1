@@ -1,0 +1,170 @@
+/* Nutrition.css */
+.nutrition-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .nutrition-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .nutrition-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .diet-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .meal-plan-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #3498db;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .icon-button, .primary-icon-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .icon-button {
+    background-color: #f1f1f1;
+    color: #555;
+  }
+  
+  .primary-icon-button {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .icon-button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+  }
+  
+  .primary-icon-button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+  }
+  
+  .icon {
+    font-size: 1.2rem;
+  }
+  
+  .meal-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 2rem;
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Staggered animations */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  
+  .no-meals-text {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-size: 1.2rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .nutrition-title {
+      font-size: 2rem;
+    }
+    
+    .nutrition-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .diet-selector-container {
+      width: 100%;
+      justify-content: space-between;
+    }
+    
+    .action-buttons {
+      width: 100%;
+      justify-content: flex-end;
+    }
+    
+    .meal-list {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .nutrition-container {
+      padding: 15px;
+    }
+    
+    .nutrition-title {
+      font-size: 1.8rem;
+    }
+    
+    .meal-plan-text {
+      display: none;
+    }
+  }

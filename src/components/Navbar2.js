@@ -1,20 +1,26 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bell } from 'lucide-react';
 
-const Navbar2 = () => {
+function Navbar2() {
   const location = useLocation();
+
+  function getLinkClass(path) {
+    return 'nav-link' + (location.pathname === path ? ' active' : '');
+  }
 
   return (
     <nav className="navbar">
       <div className="navbar-logo">THE FITNESS HUB</div>
 
       <div className="navbar-links">
-        <Link to="/dashboards" className={`nav-link ${location.pathname === '/dashboards' ? 'active' : ''}`}>Dashboard</Link>
-        <Link to="/workouts" className="nav-link">Workouts</Link>
-        <Link to="/nutrition" className="nav-link">Nutrition</Link>
-        <Link to="/progress" className="nav-link">Progress</Link>
-        <Link to="/ai-recommendations" className="nav-link">AI Recommendations</Link>
-        <Link to="/settings" className="nav-link">Settings</Link>
+        <Link to="/dashboards" className={getLinkClass('/dashboards')}>Dashboard</Link>
+        <Link to="/workouts" className={getLinkClass('/workouts')}>Workouts</Link>
+        <Link to="/nutrition" className={getLinkClass('/nutrition')}>Nutrition</Link>
+        <Link to="/bmicalculator" className={getLinkClass('/bmicalculator')}>BMI Calculator</Link>
+        <Link to="/myth-busters" className={getLinkClass('/myth-busters')}>Myth Busters</Link>
+        <Link to="/ai-recommendations" className={getLinkClass('/ai-recommendations')}>AI Recommendations</Link>
+        <Link to="/settings" className={getLinkClass('/settings')}>Settings</Link>
       </div>
 
       <div className="navbar-actions">
@@ -28,6 +34,6 @@ const Navbar2 = () => {
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar2;

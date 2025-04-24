@@ -1,0 +1,150 @@
+.app-container {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000;
+  color: #ff4d5a;
+  min-height: 100vh;
+  
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #ff4d5a;
+}
+
+.bmi-calculator {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #111;
+  border: 2px solid #ff4d5a;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(229, 57, 53, 0.3);
+}
+
+.bmi-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #ff4d5a;
+}
+
+.bmi-input {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+
+}
+
+.bmi-input:focus {
+  border-style: solid;
+  border-width: 1px;
+  border-color:#ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.calculate-btn {
+  background-color: #ff4d5a;
+  color: #000;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.calculate-btn:hover {
+  background-color: #ff4d5a;
+}
+
+.bmi-result {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.result-value {
+  margin-bottom: 20px;
+}
+
+.bmi-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.bmi-status {
+  font-size: 1.2rem;
+  margin-top: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.bmi-status.underweight {
+  color: #ff9800;
+}
+.bmi-status.normal {
+  color: #4caf50;
+}
+.bmi-status.overweight {
+  color: #ffc107;
+}
+.bmi-status.obese {
+  color: #ff4d5a;
+}
+
+.bmi-scale {
+  margin-top: 20px;
+}
+
+.scale-container {
+  position: relative;
+}
+
+.scale-labels,
+.scale-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin: 8px 0;
+}
+
+.scale-bar {
+  position: relative;
+  height: 10px;
+  background: linear-gradient(to right, #ff9800, #4caf50, #ffc107, #e53935);
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.scale-marker {
+  position: absolute;
+  top: -6px;
+  width: 12px;
+  height: 22px;
+  background-color: #fff;
+  border: 2px solid #ff4d5a;
+  border-radius: 4px;
+  transform: translateX(-50%);
+}
+
+.bmi-description {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #ff4d5a;
+}
+
+.bmi-description p {
+  color: #ccc;
+  font-size: 1rem;
+  line-height: 1.6;
+}
