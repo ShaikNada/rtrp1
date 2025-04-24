@@ -132,4 +132,27 @@ body {
   select option {
     background: #000;
   }
-  
+  /* Add these to your existing AIRecommendations.css */
+
+.workout-section h3 {
+  color: #ff4d5a;
+  margin: 15px 0 8px 0;
+}
+
+.workout-section ul {
+  margin-bottom: 15px;
+}
+
+.plan-card em {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.swap-btn {
+  background-color: #4d79ff;
+  margin-top: 15px;
+}
+
+.swap-btn:hover {
+  background-color: #3a5de6;
+}
