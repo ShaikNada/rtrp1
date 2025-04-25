@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import Navbar from './components/Navbar';
 import About from './pages/About';
@@ -28,6 +28,7 @@ function App() {
   const aboutusRef = useRef(null);
   const whyChooseUsRef = useRef(null);
   const missionRef = useRef(null);
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
 
   const scrollToAbout = () => aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
   const scrollToAboutus = () => aboutusRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -44,8 +45,14 @@ function App() {
               scrollToAboutus={scrollToAboutus}
               scrollToWhyChooseUs={scrollToWhyChooseUs}
               scrollToMission={scrollToMission}
+              setShowSignUpForm={setShowSignUpForm}
             />
-            <div ref={aboutRef}><About /></div>
+            <div ref={aboutRef}>
+              <About 
+                showSignUpForm={showSignUpForm} 
+                setShowSignUpForm={setShowSignUpForm}
+              />
+            </div>
             <div ref={aboutusRef}><Aboutus /></div>
             <div ref={whyChooseUsRef}><WhyChooseUs /></div>
             <div ref={missionRef}><Mission scrollToAbout={scrollToAbout} /></div>
@@ -59,12 +66,12 @@ function App() {
         <Route path="/ai-recommendations" element={<AIRecommendations />} />
         <Route path="/settings" element={<Settings />} />
 
-        {/* 👇 New dynamic workout routes */}
+        {/* New dynamic workout routes */}
         <Route path="/workout/:type" element={<WorkoutDetailPage />} />
         <Route path="/workout/:type/plans" element={<TrainingPlansPage />} />
         <Route path="/workout/:type/:day" element={<WorkoutDayPage />} />
         <Route path="/workout/:type/:day/exercise" element={<ExercisePage />} />
-        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
       </Routes>
     </Router>
   );

@@ -1,6 +1,17 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-const Navbar = ({ scrollToAbout, scrollToAboutus, scrollToWhyChooseUs, scrollToMission }) => {
+const Navbar = ({ 
+  scrollToAbout, 
+  scrollToAboutus, 
+  scrollToWhyChooseUs, 
+  scrollToMission,
+  setShowSignUpForm 
+}) => {
+  const handleSignUpClick = () => {
+    setShowSignUpForm(true);
+    scrollToAbout();
+  };
+
   return (
     <nav style={{
       width: "100%",
@@ -8,103 +19,112 @@ const Navbar = ({ scrollToAbout, scrollToAboutus, scrollToWhyChooseUs, scrollToM
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: "10px",
+      padding: "10px 5%",
       position: "fixed",
       top: 0,
-      zIndex: 100
+      zIndex: 1000,
+      boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
+      boxSizing: "border-box",
+      overflow: "hidden"
     }}>
       <div style={{
         color: "red",
-        fontSize: "24px",
+        fontSize: "clamp(18px, 4vw, 24px)",
         fontWeight: "bold",
-        marginLeft: "15px"
-      }}>THE FITNESS HUB</div>
-      
+        whiteSpace: "nowrap",
+        minWidth: "120px"
+      }}>
+        THE FITNESS HUB
+      </div>
+
       <ul style={{
         listStyle: "none",
         display: "flex",
         alignItems: "center",
-        gap: "30px",
+        gap: "clamp(10px, 2vw, 20px)",
         margin: 0,
         padding: 0,
-        marginRight: "40px"
+        flexWrap: "wrap",
+        justifyContent: "flex-end"
       }}>
         <li>
-          <button 
+          <button
             onClick={scrollToAboutus}
             style={{
-              color: "white",
-              textDecoration: "none",
-              fontSize: "16px",
-              transition: "color 0.3s ease",
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
+              ...buttonStyle,
+              fontSize: "clamp(12px, 2vw, 16px)"
             }}
-            onMouseEnter={(e) => e.target.style.color = "#ccc"}
-            onMouseLeave={(e) => e.target.style.color = "white"}
           >
             About Us
           </button>
         </li>
         <li>
-          <button 
+          <button
             onClick={scrollToWhyChooseUs}
             style={{
-              color: "white",
-              textDecoration: "none",
-              fontSize: "16px",
-              transition: "color 0.3s ease",
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
+              ...buttonStyle,
+              fontSize: "clamp(12px, 2vw, 16px)"
             }}
-            onMouseEnter={(e) => e.target.style.color = "#ccc"}
-            onMouseLeave={(e) => e.target.style.color = "white"}
           >
             Why Choose Us
           </button>
         </li>
         <li>
-          <button 
+          <button
             onClick={scrollToMission}
             style={{
-              color: "white",
-              textDecoration: "none",
-              fontSize: "16px",
-              transition: "color 0.3s ease",
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer'
+              ...buttonStyle,
+              fontSize: "clamp(12px, 2vw, 16px)"
             }}
-            onMouseEnter={(e) => e.target.style.color = "#ccc"}
-            onMouseLeave={(e) => e.target.style.color = "white"}
           >
             Our Mission
           </button>
         </li>
         <li>
-          <button 
-            onClick={scrollToAbout}
+          <button
+            onClick={handleSignUpClick}
             style={{
-              backgroundColor: "red",
-              color: "white",
-              border: "none",
-              padding: "8px 18px",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontSize: "15px",
-              transition: "background-color 0.3s ease"
+              ...signupButtonStyle,
+              fontSize: "clamp(12px, 2vw, 16px)",
+              padding: "clamp(8px, 2vw, 10px) clamp(12px, 3vw, 24px)"
             }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = "#d40000"}
-            onMouseLeave={(e) => e.target.style.backgroundColor = "red"}
           >
-            Get Started
+            Sign Up
           </button>
         </li>
       </ul>
     </nav>
   );
+};
+
+const buttonStyle = {
+  color: "white",
+  textDecoration: "none",
+  fontWeight: "500",
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  whiteSpace: "nowrap",
+  transition: "all 0.2s ease",
+  ':hover': {
+    color: "#ccc"
+  }
+};
+
+const signupButtonStyle = {
+  backgroundColor: "red",
+  color: "white",
+  border: "none",
+  borderRadius: "4px",
+  cursor: "pointer",
+  fontWeight: "600",
+  transition: "all 0.2s ease",
+  whiteSpace: "nowrap",
+  boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+  ':hover': {
+    backgroundColor: "#d40000",
+    transform: "scale(1.05)"
+  }
 };
 
 export default Navbar;

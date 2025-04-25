@@ -5,7 +5,9 @@ import D3 from '../components/D3';
 
 const Dashboard = () => {
   const userEmail = localStorage.getItem("userEmail"); 
-  let DashboardComponent = D3;
+  const userName = localStorage.getItem("userName"); // This was already set in the About component
+  
+  let DashboardComponent = D3; // Default to D3
 
   if (userEmail === "alex@example.com") {
     DashboardComponent = D1;
@@ -17,7 +19,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <Navbar2 />
       <div className="dashboard-content">
-        <DashboardComponent />
+        <DashboardComponent userName={userName} />
       </div>
     </div>
   );
