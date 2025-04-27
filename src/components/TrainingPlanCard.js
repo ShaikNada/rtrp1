@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const TrainingPlanCard = ({ id, title, day, difficulty }) => {
+const TrainingPlanCard = ({ id, title, day, difficulty, image }) => {
   const renderDifficultyIcons = () => {
     const icons = [];
     for (let i = 0; i < difficulty; i++) {
@@ -25,9 +25,21 @@ const TrainingPlanCard = ({ id, title, day, difficulty }) => {
           {renderDifficultyIcons()}
         </div>
         <p style={{ color: '#aaa', marginBottom: '4px' }}>{title}</p>
-        <h3 style={{ color: 'white', fontSize: '24px', fontWeight: 'bold', marginBottom: '12px' }}>
-          DAY {day}
-        </h3>
+
+        {/* Image Instead of Day */}
+        <div style={{ marginBottom: '12px' }}>
+          <img 
+            src={image} 
+            alt={title} 
+            style={{
+              width: '100%', 
+              height: '180px', 
+              objectFit: 'cover', 
+              borderRadius: '8px'
+            }} 
+          />
+        </div>
+
         <Link
           to={`/training/${id}/day/${day}/exercises`}
           style={{

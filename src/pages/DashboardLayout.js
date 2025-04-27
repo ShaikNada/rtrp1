@@ -52,7 +52,7 @@ const DashboardLayout = ({ data }) => {
       <div className="section">
         <div className="section-header">
           <h2 className="section-title">GET STARTED WITH A WORKOUT</h2>
-          <button className="view-all-btn" onClick={() => navigate('/Workouts')}>View All</button>
+          <button className="view-all-btn" onClick={() => navigate('/workouts')}>View All</button>
         </div>
         <div className="workouts-grid">
           {data.workoutsList.map((w, i) => (
@@ -89,7 +89,7 @@ const DashboardLayout = ({ data }) => {
       <div className="section">
         <div className="section-header">
           <h2 className="section-title">TODAY'S MEALS</h2>
-          <button className="view-plan-btn" onClick={() => navigate('/Nutriton')}>View Plan</button>
+          <button className="view-plan-btn" onClick={() => navigate('/nutrition')}>View Plan</button>
         </div>
         <div className="meals-grid">
           {data.meals.map((meal, i) => (

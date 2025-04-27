@@ -1,17 +1,52 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar2 from '../components/Navbar2';
-import TrainingPlan from './TrainingPlansPage';
 import TrainingPlansPage from './TrainingPlansPage';
 
 // Mock training plans data
 const trainingPlans = [
-  { id: 'build-muscle', title: 'Build muscle & strength', day: 1, difficulty: 4 },
-  { id: 'lose-weight', title: 'Lose weight & Keep fit', day: 1, difficulty: 4 },
-  { id: 'lose-belly-fat', title: 'Lose belly fat', day: 1, difficulty: 4 },
-  { id: 'toned-arms', title: 'Get toned arms', day: 1, difficulty: 3 },
-  { id: 'strong-core', title: 'Build a strong core', day: 1, difficulty: 4 },
-  { id: 'better-sleep', title: 'Exercise for better sleep', day: 1, difficulty: 2 },
+  {
+    id: 'build-muscle',
+    title: 'Build muscle & strength',
+    day: 1,
+    difficulty: 4,
+    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b',
+  },
+  {
+    id: 'lose-weight',
+    title: 'Lose weight & Keep fit',
+    day: 1,
+    difficulty: 4,
+    image: 'https://images.unsplash.com/photo-1599058917765-a780eda07a3e',
+  },
+  {
+    id: 'lose-belly-fat',
+    title: 'Lose belly fat',
+    day: 1,
+    difficulty: 4,
+    image: 'https://images.ctfassets.net/eoy59ml1klsi/1VhvuDmCBp3kOQq0l5oQjH/7225a6f8168036ce178174124e566e0e/woman-doing-bicycle-crunches.jpeg',
+  },
+  {
+    id: 'toned-arms',
+    title: 'Get toned arms',
+    day: 1,
+    difficulty: 3,
+    image: 'https://i.ytimg.com/vi/p2-FPCR0Q04/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBc_IkhLaFxSzxEK_B4GWs8QD3okg',
+  },
+  {
+    id: 'strong-core',
+    title: 'Build a strong core',
+    day: 1,
+    difficulty: 4,
+    image: 'https://hips.hearstapps.com/hmg-prod/images/muscular-hispanic-man-doing-plank-on-the-beach-at-royalty-free-image-1680697280.jpg',
+  },
+  {
+    id: 'better-sleep',
+    title: 'Exercise for better sleep',
+    day: 1,
+    difficulty: 2,
+    image: 'https://www.saatva.com/blog/wp-content/uploads/2024/02/pilates-for-sleep.jpg',
+  },
 ];
 
 const AllWorkouts = () => {
@@ -29,7 +64,7 @@ const AllWorkouts = () => {
         
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr',
+          gridTemplateColumns: 'repeat(2, 1fr)',
           gap: '16px',
         }}>
           {trainingPlans.map((plan) => (
@@ -39,6 +74,7 @@ const AllWorkouts = () => {
               title={plan.title}
               day={plan.day}
               difficulty={plan.difficulty}
+              image={plan.image}
             />
           ))}
         </div>

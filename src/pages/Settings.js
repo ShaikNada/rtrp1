@@ -13,11 +13,11 @@ function Settings() {
 
   useEffect(() => {
     const savedSettings = JSON.parse(localStorage.getItem('fitnessSettings')) || {};
-    setName(savedSettings.name || 'Alex Johnson');
-    setHeight(savedSettings.height || 175);
-    setWeight(savedSettings.weight || 68);
-    setProfilePic(savedSettings.profilePic || 'https://randomuser.me/api/portraits/men/32.jpg');
-    setSelectedGoal(savedSettings.goal || '');
+    setName(savedSettings.name || '');
+    setHeight(savedSettings.height || 0);
+    setWeight(savedSettings.weight || 0);
+    
+    setSelectedGoal(savedSettings.goal || '');setProfilePic(savedSettings.profilePic || 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740');
     setDarkMode(savedSettings.darkMode ?? true);
   }, []);
 

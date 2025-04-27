@@ -7,7 +7,7 @@ import ExerciseItem from '../components/ExerciseItem';
 const categoryExercises = {
   'strength': [
     { id: 'bench-press', name: 'Bench Press', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b', reps: 12, tags: ['chest', 'strength'], completed: false },
-    { id: 'deadlift', name: 'Deadlift', image: 'https://images.unsplash.com/photo-1598971639058-fab03d95fde2', reps: 10, tags: ['back', 'strength'], completed: false },
+    { id: 'deadlift', name: 'Deadlift', image: 'https://www.onthegofitnesspro.com/wp-content/uploads/2019/07/AdobeStock_363136767-scaled.jpeg', reps: 10, tags: ['back', 'strength'], completed: false },
     { id: 'squats', name: 'Squats', image: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a', reps: 15, tags: ['legs', 'strength'], completed: false },
     { id: 'shoulder-press', name: 'Shoulder Press', image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5', reps: 10, tags: ['shoulders', 'strength'], completed: false },
   ],

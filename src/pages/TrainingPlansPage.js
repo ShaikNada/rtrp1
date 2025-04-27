@@ -43,13 +43,13 @@ const trainingPlansData = {
   }
 };
 
-const TrainingPlansPage = ({ id, title, day, difficulty } = {}) => {
+const TrainingPlansPage = ({ id, title, day, difficulty, image } = {}) => {
   const params = useParams();
   const planId = id || (params?.id && trainingPlansData[params.id] ? params.id : 'build-muscle');
   const plan = trainingPlansData[planId];
 
   // If rendered as a card (with props), show the card view
-  if (id && title && day && difficulty) {
+  if (id && title && day && difficulty && image) {
     return (
       <div style={{
         backgroundColor: 'black',
@@ -64,9 +64,19 @@ const TrainingPlansPage = ({ id, title, day, difficulty } = {}) => {
             ))}
           </div>
           <p style={{ color: '#aaaaaa', marginBottom: '8px' }}>{title}</p>
-          <h3 style={{ color: 'white', fontSize: '24px', fontWeight: 'bold', marginBottom: '12px' }}>
-            DAY {day}
-          </h3>
+          <div className="mb-3">
+            <img 
+              src={image} 
+              alt={`Day ${day} workout`}
+              className="w-full h-32 object-cover rounded-lg"
+              style={{
+                width: '100%',
+                height: '300px',
+                objectFit: 'cover',
+                borderRadius: '8px',
+              }}
+            />
+          </div>
           <Link
             to={`/training/${id}`}
             style={{

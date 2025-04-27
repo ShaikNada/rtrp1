@@ -19,7 +19,7 @@ const exercisesData = {
       {
         id: 'pull-ups',
         name: 'Pull-Ups',
-        image: 'https://images.unsplash.com/photo-1598971639058-fab03d95fde2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: 'https://www.dmoose.com/cdn/shop/articles/MicrosoftTeams-image_7.jpg?v=1691501915',
         reps: 12,
         tags: ['body weight', 'lats'],
         completed: false,
