@@ -1,84 +1,59 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const WorkoutCard = ({ title, duration, level, imageUrl, link }) => {
+const WorkoutCard = ({ title, image, duration, level, id }) => {
   return (
-    <div style={{
-      backgroundColor: '#1a1a1a',
-      borderRadius: '8px',
-      overflow: 'hidden',
-      transition: 'transform 0.2s ease',
-      ':hover': {
-        transform: 'translateY(-5px)',
-        boxShadow: '0 10px 20px rgba(0,0,0,0.2)'
-      }
-    }}>
-      <div style={{ 
-        height: '160px', 
+    <div
+      style={{
+        backgroundColor: '#111',
+        borderRadius: '12px',
         overflow: 'hidden',
-        position: 'relative'
-      }}>
-        <img 
-          src={imageUrl} 
-          alt={title} 
-          style={{ 
+        border: '1px solid #333',
+        marginBottom: '16px',
+      }}
+    >
+      <div style={{ height: '192px', overflow: 'hidden' }}>
+        <img
+          src={image}
+          alt={title}
+          style={{
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            transition: 'transform 0.3s ease'
-          }} 
+          }}
         />
-        <div style={{
-          position: 'absolute',
-          bottom: '0',
-          left: '0',
-          right: '0',
-          background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-          padding: '8px 16px',
-          color: 'white'
-        }}>
-          <span style={{ marginRight: '8px' }}>⏱️ {duration} min</span>
-          <span>🏋️ {level}</span>
-        </div>
       </div>
       <div style={{ padding: '16px' }}>
-        <h3 style={{ 
-          fontWeight: 'bold',
-          textTransform: 'uppercase',
-          marginBottom: '8px',
-          fontSize: '1.1rem'
-        }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+          <span style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{ color: 'white', marginRight: '4px' }}>🔥</span> {duration} min
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center' }}>
+            <span style={{ color: 'white', marginRight: '4px' }}>💪</span> {level}
+          </span>
+        </div>
+        <h3 style={{ color: 'white', fontSize: '18px', fontWeight: 'bold', marginBottom: '12px' }}>
           {title}
         </h3>
-        <Link 
-          to={link}
+        <Link
+          to={`/training/${id}`}
           style={{
-            backgroundColor: '#ea384c',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#ff4d4d',
             color: 'white',
-            padding: '8px 16px',
-            borderRadius: '4px',
+            padding: '10px 16px',
+            borderRadius: '8px',
             textDecoration: 'none',
-            display: 'inline-block',
-            transition: 'background-color 0.2s ease',
-            ':hover': {
-              backgroundColor: '#ff4757'
-            }
+            fontWeight: 'bold',
           }}
         >
-          Start →
+          Start <ArrowRight size={16} style={{ marginLeft: '8px' }} />
         </Link>
       </div>
     </div>
   );
-};
-
-WorkoutCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  duration: PropTypes.number.isRequired,
-  level: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired
 };
 
 export default WorkoutCard;

@@ -4,7 +4,7 @@ import MealCard from '../components/MealCard';
 import DietSelector from '../components/DietSelector';
 import MealTypeSelector from '../components/MealTypeSelector';
 import { meals, dietOptions, mealTypes } from '../data/meals.';
-import Navbar2 from '../components/Navbar2'; // Adjust import path as needed
+import Navbar2 from '../components/Navbar2';
 import './Nutrition.css';
 
 const Nutrition = () => {
@@ -22,30 +22,58 @@ const Nutrition = () => {
     setFilteredMeals(filtered);
   }, [selectedDiet, selectedMealType]);
 
+  const handleMealClick = (meal) => {
+    // Get current nutrition stats from localStorage or initialize
+    const today = new Date().toISOString().split('T')[0];
+    const nutritionStats = JSON.parse(localStorage.getItem('nutritionStats')) || {
+      [today]: {
+        caloriesConsumed: 0,
+        mealsLogged: 0
+      }
+    };
+    
+    // Initialize today's data if it doesn't exist
+    if (!nutritionStats[today]) {
+      nutritionStats[today] = {
+        caloriesConsumed: 0,
+        mealsLogged: 0
+      };
+    }
+    
+    // Update stats
+    nutritionStats[today].caloriesConsumed += meal.calories;
+    nutritionStats[today].mealsLogged += 1;
+    
+    // Save back to localStorage
+    localStorage.setItem('nutritionStats', JSON.stringify(nutritionStats));
+    
+    navigate(`/recipe/${meal.id}`);
+  };
+
   return (
     <div>
       <Navbar2 />
       <div className="nutrition-container">
-      <div className="animate-slide-up">
-        <h1 className="nutrition-title">MEALS</h1>
-        <div className="nutrition-header">
-          <div className="diet-selector-container">
-            <DietSelector
-              selectedDiet={selectedDiet}
-              options={dietOptions}
-              onChange={setSelectedDiet}
-            />
-            <span className="meal-plan-text">MEAL PLAN</span>
+        <div className="animate-slide-up">
+          <h1 className="nutrition-title">MEALS</h1>
+          <div className="nutrition-header">
+            <div className="diet-selector-container">
+              <DietSelector
+                selectedDiet={selectedDiet}
+                options={dietOptions}
+                onChange={setSelectedDiet}
+              />
+              <span className="meal-plan-text">MEAL PLAN</span>
+            </div>
+            <div className="action-buttons">
+              <button className="icon-button">
+                <span className="icon">≡</span>
+              </button>
+              <button className="primary-icon-button">
+                <span className="icon">♡</span>
+              </button>
+            </div>
           </div>
-          <div className="action-buttons">
-            <button className="icon-button">
-              <span className="icon">≡</span>
-            </button>
-            <button className="primary-icon-button">
-              <span className="icon">♡</span>
-            </button>
-          </div>
-        </div>
         </div>
         <MealTypeSelector
           types={mealTypes}
@@ -58,8 +86,8 @@ const Nutrition = () => {
             <div 
               key={meal.id} 
               className={`fade-in stagger-${index + 1}`}
-              onClick={() => navigate(`/recipe/${meal.id}`)} // Added click handler
-              style={{ cursor: 'pointer' }} // Visual cue that it's clickable
+              onClick={() => handleMealClick(meal)}
+              style={{ cursor: 'pointer' }}
             >
               <MealCard
                 id={meal.id}

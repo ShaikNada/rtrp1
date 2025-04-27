@@ -1,210 +1,124 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
+import Navbar2 from '../components/Navbar2';
+import WorkoutDay from '../components/WorkoutDay';
 
-const styles = {
-  appContainer: {
-    minHeight: '100vh',
-    backgroundColor: '#0c0c0c',
-    color: 'white',
-    fontFamily: 'sans-serif',
+// Mock training plan data
+const trainingPlansData = {
+  'build-muscle': {
+    title: 'Build muscle & strength',
+    days: [
+      { day: 1, exercises: 12, completed: false },
+      { day: 2, exercises: 10, completed: false },
+      { day: 3, exercises: 15, completed: false },
+      { day: 4, exercises: 0, completed: false },
+      { day: 5, exercises: 12, completed: false },
+      { day: 6, exercises: 8, completed: false },
+      { day: 7, exercises: 0, completed: false },
+    ]
   },
-  trainingHeader: {
-    padding: '16px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '16px',
+  'lose-weight': {
+    title: 'Lose weight & Keep fit',
+    days: [
+      { day: 1, exercises: 10, completed: false },
+      { day: 2, exercises: 12, completed: false },
+      { day: 3, exercises: 8, completed: false },
+      { day: 4, exercises: 14, completed: false },
+      { day: 5, exercises: 0, completed: false },
+      { day: 6, exercises: 12, completed: false },
+      { day: 7, exercises: 6, completed: false },
+    ]
   },
-  backButton: {
-    background: 'none',
-    border: 'none',
-    color: 'white',
-    cursor: 'pointer',
-    padding: '8px',
-  },
-  trainingTitle: {
-    fontSize: '24px',
-    fontWeight: '600',
-  },
-  plansContainer: {
-    padding: '16px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-  },
-  card: {
-    backgroundColor: '#ffeef2',
-    borderRadius: '16px',
-    padding: '24px',
-    color: 'black',
-    position: 'relative',
-  },
-  difficulty: {
-    display: 'flex',
-    gap: '4px',
-    marginBottom: '16px',
-  },
-  bolt: {
-    color: '#ddd',
-  },
-  boltActive: {
-    color: '#ea384c',
-  },
-  planTitle: {
-    fontSize: '18px',
-    fontWeight: '600',
-    marginBottom: '8px',
-  },
-  planDay: {
-    fontSize: '32px',
-    fontWeight: '700',
-    marginBottom: '16px',
-  },
-  planButton: {
-    backgroundColor: '#ea384c',
-    color: 'white',
-    borderRadius: '50px',
-    padding: '12px 24px',
-    textDecoration: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
-    fontWeight: '600',
-    width: '100%',
-  },
-  loadingContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '200px',
-  },
-  errorText: {
-    color: '#ff6b6b',
-    textAlign: 'center',
-    padding: '20px',
+  'lose-belly-fat': {
+    title: 'Lose belly fat',
+    days: [
+      { day: 1, exercises: 12, completed: false },
+      { day: 2, exercises: 10, completed: false },
+      { day: 3, exercises: 15, completed: false },
+      { day: 4, exercises: 0, completed: false },
+      { day: 5, exercises: 12, completed: false },
+      { day: 6, exercises: 8, completed: false },
+      { day: 7, exercises: 0, completed: false },
+    ]
   }
 };
 
-const TrainingPlansPage = () => {
-  const navigate = useNavigate();
-  const [plans, setPlans] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const TrainingPlansPage = ({ id, title, day, difficulty } = {}) => {
+  const params = useParams();
+  const planId = id || (params?.id && trainingPlansData[params.id] ? params.id : 'build-muscle');
+  const plan = trainingPlansData[planId];
 
-  useEffect(() => {
-    const fetchPlans = async () => {
-      try {
-        // Replace with actual API call
-        // const response = await fetch('/api/training-plans');
-        // if (!response.ok) throw new Error('Failed to fetch plans');
-        // const data = await response.json();
-        
-        // Mock data - replace with real API response
-        const data = [
-          {
-            id: 'strength',
-            title: 'Build muscle & strength',
-            difficulty: 4, // 1-4 scale
-            duration: '8 weeks',
-            description: 'Compound movements for maximum gains',
-            image: '/images/strength.jpg'
-          },
-          {
-            id: 'weight-loss',
-            title: 'Lose weight & Keep fit',
-            difficulty: 2,
-            duration: '12 weeks',
-            description: 'Fat burning HIIT and cardio',
-            image: '/images/cardio.jpg'
-          },
-          {
-            id: 'belly-fat',
-            title: 'Lose belly fat',
-            difficulty: 3,
-            duration: '6 weeks',
-            description: 'Core-focused workouts',
-            image: '/images/core.jpg'
-          }
-        ];
-        
-        setPlans(data);
-      } catch (err) {
-        setError('Failed to load training plans. Please try again later.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPlans();
-  }, []);
-
-  if (loading) {
+  // If rendered as a card (with props), show the card view
+  if (id && title && day && difficulty) {
     return (
-      <div style={styles.appContainer}>
-        <div style={styles.trainingHeader}>
-          <button style={styles.backButton} onClick={() => navigate(-1)}>
-            <ArrowLeft />
-          </button>
-          <h1 style={styles.trainingTitle}>Training Plans</h1>
-        </div>
-        <div style={styles.loadingContainer}>
-          <p>Loading plans...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div style={styles.appContainer}>
-        <div style={styles.trainingHeader}>
-          <button style={styles.backButton} onClick={() => navigate(-1)}>
-            <ArrowLeft />
-          </button>
-          <h1 style={styles.trainingTitle}>Training Plans</h1>
-        </div>
-        <p style={styles.errorText}>{error}</p>
-      </div>
-    );
-  }
-
-  return (
-    <div style={styles.appContainer}>
-      <div style={styles.trainingHeader}>
-        <button style={styles.backButton} onClick={() => navigate(-1)}>
-          <ArrowLeft />
-        </button>
-        <h1 style={styles.trainingTitle}>Select Training Plan</h1>
-      </div>
-
-      <div style={styles.plansContainer}>
-        {plans.map((plan) => (
-          <div key={plan.id} style={styles.card}>
-            <div style={styles.difficulty}>
-              {[...Array(4)].map((_, i) => (
-                <span 
-                  key={i} 
-                  style={i < plan.difficulty ? styles.boltActive : styles.bolt}
-                >
-                  ⚡
-                </span>
-              ))}
-            </div>
-            <h2 style={styles.planTitle}>{plan.title}</h2>
-            <p style={{ color: '#666', marginBottom: '8px' }}>{plan.description}</p>
-            <p style={{ color: '#888', fontSize: '14px', marginBottom: '16px' }}>
-              Duration: {plan.duration}
-            </p>
-            <Link 
-              to={`/workout/${plan.id}`}
-              style={styles.planButton}
-            >
-              SELECT PLAN <ChevronRight />
-            </Link>
+      <div style={{
+        backgroundColor: 'black',
+        border: '1px solid #2c2c2c',
+        borderRadius: '12px',
+        padding: '16px'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+            {Array.from({ length: difficulty }).map((_, i) => (
+              <span key={i} style={{ color: '#ff4d4d' }}>⚡</span>
+            ))}
           </div>
-        ))}
+          <p style={{ color: '#aaaaaa', marginBottom: '8px' }}>{title}</p>
+          <h3 style={{ color: 'white', fontSize: '24px', fontWeight: 'bold', marginBottom: '12px' }}>
+            DAY {day}
+          </h3>
+          <Link
+            to={`/training/${id}`}
+            style={{
+              marginTop: '8px',
+              backgroundColor: '#ff4d4d',
+              color: 'white',
+              padding: '12px 16px',
+              borderRadius: '8px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              fontWeight: 'bold'
+            }}
+          >
+            START
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Otherwise show the full training plan view
+  return (
+    <div style={{ minHeight: '100vh', backgroundColor: 'black' }}>
+      <Navbar2 />
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 16px' }}>
+        <div style={{ marginBottom: '24px' }}>
+          <Link
+            to="/workouts/all"
+            style={{ color: 'white', display: 'flex', alignItems: 'center', marginBottom: '16px', textDecoration: 'none' }}
+          >
+            <ArrowLeft size={20} style={{ marginRight: '8px' }} /> Back
+          </Link>
+
+          <h1 style={{ color: 'white', fontSize: '24px', fontWeight: 'bold' }}>{plan.title}</h1>
+          <p style={{ color: '#aaaaaa' }}>
+            <span style={{ color: '#ff4d4d' }}>Week 1</span>
+          </p>
+        </div>
+
+        <div style={{ marginTop: '32px' }}>
+          {plan.days.map((day, index) => (
+            <WorkoutDay
+              key={day.day}
+              day={day.day}
+              exerciseCount={day.exercises}
+              completed={day.completed}
+              trainingId={planId}
+              active={index === 0}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

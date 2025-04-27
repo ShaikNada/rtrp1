@@ -13,6 +13,9 @@ import BMICalculator from './pages/BMICalculator';
 import MythBusters from './pages/MythBusters';
 import AIRecommendations from './pages/AIRecommendations';
 import Settings from './pages/Settings';
+import AllWorkouts from './pages/AllWorkouts';
+
+import ActiveWorkout from './pages/ActiveWorkout';
 
 // Newly added pages
 import ExercisePage from './pages/ExercisePage';
@@ -20,7 +23,8 @@ import TrainingPlansPage from './pages/TrainingPlansPage';
 import WorkoutDetailPage from './pages/WorkoutDetailPage';
 import WorkoutDayPage from './pages/WorkoutDayPage';
 import RecipeDetail from './pages/RecipeDetail';
-
+import CategoryExercises from './pages/CategoryExercises';
+import CategoryWorkout from './pages/CategoryWorkout';
 import './App.css';
 
 function App() {
@@ -67,10 +71,12 @@ function App() {
         <Route path="/settings" element={<Settings />} />
 
         {/* New dynamic workout routes */}
-        <Route path="/workout/:type" element={<WorkoutDetailPage />} />
-        <Route path="/workout/:type/plans" element={<TrainingPlansPage />} />
-        <Route path="/workout/:type/:day" element={<WorkoutDayPage />} />
-        <Route path="/workout/:type/:day/exercise" element={<ExercisePage />} />
+        <Route path="/workouts/all" element={<AllWorkouts />} />
+          <Route path="/training/:id" element={<TrainingPlansPage />} />
+          <Route path="/training/:id/day/:day/exercises" element={<ExercisePage />} />
+          <Route path="/training/:id/day/:day/workout/:exerciseId" element={<ActiveWorkout />} />
+          <Route path="/category/:categoryId/exercises" element={<CategoryExercises />} />
+          <Route path="/workout/:categoryId/:exerciseId" element={<CategoryWorkout />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
       </Routes>
     </Router>

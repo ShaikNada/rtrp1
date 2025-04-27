@@ -1,158 +1,108 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Activity, Dumbbell, Flame, StretchHorizontal, Heart } from 'lucide-react';
 import Navbar2 from '../components/Navbar2';
 import WorkoutCard from '../components/WorkoutCard';
+import WorkoutCategory from '../components/WorkoutCategory';
+
+// Mock workout data
+const recommendedWorkouts = [
+  {
+    id: '1',
+    title: 'FULL BODY STRENGTH',
+    image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+    duration: 30,
+    level: 'Intermediate',
+  },
+  {
+    id: '2',
+    title: 'MORNING HIIT CARDIO',
+    image: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+    duration: 20,
+    level: 'Beginner',
+  },
+  {
+    id: '3',
+    title: 'YOGA FOR FLEXIBILITY',
+    image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+    duration: 25,
+    level: 'All Levels',
+  },
+];
+
+// Workout categories
+const categories = [
+  { id: 'strength', title: 'Strength', icon: <Dumbbell size={24} /> },
+  { id: 'cardio', title: 'Cardio', icon: <Activity size={24} /> },
+  { id: 'yoga', title: 'Yoga', icon: <Heart size={24} /> },
+  { id: 'hiit', title: 'HIIT', icon: <Flame size={24} /> },
+  { id: 'pilates', title: 'Pilates', icon: <Activity size={24} /> },
+  { id: 'stretching', title: 'Stretching', icon: <StretchHorizontal size={24} /> },
+];
 
 const Workouts = () => {
-  // Workout Categories
-  const categories = [
-    { name: "Strength", icon: "💪", id: "strength" },
-    { name: "Cardio", icon: "🏃", id: "cardio" },
-    { name: "Yoga", icon: "🧘", id: "yoga" },
-    { name: "HIIT", icon: "🔥", id: "hiit" },
-    { name: "Pilates", icon: "🤸", id: "pilates" },
-    { name: "Stretching", icon: "🔄", id: "stretching" }
-  ];
-
-  // Recommended Workouts
-  const recommendedWorkouts = [
-    {
-      id: 'strength',
-      title: "FULL BODY STRENGTH",
-      duration: 30,
-      level: "Intermediate",
-      imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80",
-      link: "/workout/strength/day1"
-    },
-    {
-      id: 'cardio',
-      title: "MORNING HIIT CARDIO",
-      duration: 20,
-      level: "Beginner",
-      imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80",
-      link: "/workout/cardio/day1"
-    },
-    {
-      id: 'yoga',
-      title: "YOGA FOR FLEXIBILITY",
-      duration: 25,
-      level: "All Levels",
-      imageUrl: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1520&q=80",
-      link: "/workout/yoga/day1"
-    }
-  ];
-
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#121212',
-      color: 'white'
-    }}>
+    <div style={{ minHeight: '100vh', backgroundColor: 'black' }}>
       <Navbar2 />
-      
-      <div style={{
-        padding: '24px',
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}>
-        <h1 style={{
-          fontSize: '28px',
-          fontWeight: '700',
-          marginBottom: '32px'
-        }}>
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 16px' }}>
+        <h1 style={{ color: 'white', fontSize: '32px', fontWeight: 'bold', marginBottom: '32px' }}>
           Workouts
         </h1>
-        
-        {/* Recommended Workouts Section */}
-        <section style={{ marginBottom: '40px' }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '20px'
-          }}>
-            <h2 style={{
-              fontSize: '22px',
-              fontWeight: '600',
-              color: '#ea384c'
-            }}>
+
+        <div style={{ marginBottom: '40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <h2 style={{ color: '#ff4d4d', fontSize: '20px', fontWeight: 'bold' }}>
               RECOMMENDED FOR YOU
             </h2>
-            <Link 
-              to="/workouts/recommended" 
-              style={{
-                color: '#ea384c',
-                textDecoration: 'none',
-                fontSize: '14px'
-              }}
+            <Link
+              to="/workouts/all"
+              style={{ color: 'white', textDecoration: 'none' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#ff4d4d')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'white')}
             >
               View All
             </Link>
           </div>
+
           <div style={{
-            display: 'flex',
-            gap: '16px',
-            overflowX: 'auto',
-            paddingBottom: '16px',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            '&::-webkit-scrollbar': { display: 'none' }
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '24px',
           }}>
             {recommendedWorkouts.map((workout) => (
               <WorkoutCard
                 key={workout.id}
+                id={workout.id}
                 title={workout.title}
+                image={workout.image}
                 duration={workout.duration}
                 level={workout.level}
-                imageUrl={workout.imageUrl}
-                link={workout.link}
               />
             ))}
           </div>
-        </section>
+        </div>
 
-        {/* Categories Section */}
-        <section style={{ marginBottom: '40px' }}>
-          <h2 style={{
-            fontSize: '22px',
-            fontWeight: '600',
-            marginBottom: '20px',
-            color: '#ea384c'
-          }}>
+        <div>
+          <h2 style={{ color: 'white', fontSize: '20px', fontWeight: 'bold', marginBottom: '16px' }}>
             Workout Categories
           </h2>
+
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-            gap: '16px'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+            gap: '16px',
           }}>
             {categories.map((category) => (
-              <Link
+              <WorkoutCategory
                 key={category.id}
-                to={`/workout/${category.id}`}
-                style={{
-                  backgroundColor: '#1a1a1a',
-                  borderRadius: '12px',
-                  padding: '20px 10px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  textDecoration: 'none',
-                  color: 'white',
-                  transition: 'transform 0.2s, background-color 0.2s',
-                  ':hover': {
-                    transform: 'translateY(-4px)',
-                    backgroundColor: '#2a2a2a'
-                  }
-                }}
-              >
-                <span style={{ fontSize: '32px', marginBottom: '8px' }}>{category.icon}</span>
-                <span style={{ fontWeight: '500' }}>{category.name}</span>
-              </Link>
+                id={category.id}
+                title={category.title}
+                icon={category.icon}
+              />
             ))}
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );

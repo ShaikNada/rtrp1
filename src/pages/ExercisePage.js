@@ -1,232 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronDown, Settings } from 'lucide-react';
-import { fetchExercisesByType } from '../api/exerciseDB';
+import { ArrowLeft } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Navbar2 from '../components/Navbar2';
+import ExerciseItem from '../components/ExerciseItem';
+
+// Mock exercises data
+const exercisesData = {
+  'build-muscle': {
+    1: [
+      {
+        id: 'push-ups',
+        name: 'Push-Ups',
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        reps: 12,
+        tags: ['body weight', 'pectorals'],
+        completed: false,
+      },
+      {
+        id: 'pull-ups',
+        name: 'Pull-Ups',
+        image: 'https://images.unsplash.com/photo-1598971639058-fab03d95fde2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        reps: 12,
+        tags: ['body weight', 'lats'],
+        completed: false,
+      },
+      {
+        id: 'squats',
+        name: 'Squats',
+        image: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        reps: 15,
+        tags: ['body weight', 'legs'],
+        completed: false,
+      },
+      {
+        id: 'lunges',
+        name: 'Lunges',
+        image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        reps: 12,
+        tags: ['body weight', 'legs'],
+        completed: false,
+      },
+      {
+        id: 'planks',
+        name: 'Planks',
+        image: 'https://images.unsplash.com/photo-1566241134883-13eb2393a3cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        reps: 30,
+        tags: ['body weight', 'core'],
+        completed: false,
+      },
+    ],
+  },
+};
 
 const ExercisePage = () => {
-  const { type, day } = useParams();
+  const { id, day } = useParams();
   const navigate = useNavigate();
-  const [exercises, setExercises] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const loadExercises = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchExercisesByType(type);
-        setExercises(data);
-        setError(null);
-      } catch (err) {
-        setError('Failed to load exercises. Using fallback data.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const trainingId = id || 'build-muscle';
+  const dayNumber = day ? parseInt(day) : 1;
+  const exercises = exercisesData[trainingId]?.[dayNumber] || [];
 
-    loadExercises();
-  }, [type]);
-
-  const getWorkoutTitle = () => {
-    switch (type) {
-      case 'strength': return 'Strength Training';
-      case 'cardio': return 'Cardio Workout';
-      case 'yoga': return 'Yoga Session';
-      default: return 'Workout';
-    }
+  const startWorkout = () => {
+    navigate(`/training/${trainingId}/day/${dayNumber}/workout/${exercises[0].id}`);
   };
-
-  const estimateDuration = () => {
-    // 45 seconds per exercise estimate
-    return Math.ceil(exercises.length * 0.75);
-  };
-
-  if (loading) {
-    return (
-      <div style={{
-        minHeight: '100vh',
-        backgroundColor: '#121212',
-        color: 'white',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <div className="spinner"></div>
-        <p>Loading exercises...</p>
-      </div>
-    );
-  }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: '#121212',
-      color: 'white',
-      paddingBottom: '80px'
-    }}>
-      {/* Header Section */}
-      <div style={{
-        backgroundColor: '#ffeef2',
-        color: 'black',
-        padding: '24px 16px',
-        position: 'relative'
-      }}>
-        <button 
-          onClick={() => navigate(-1)}
-          style={{
-            position: 'absolute',
-            top: '16px',
-            left: '16px',
-            background: 'none',
-            border: 'none',
-            color: 'black',
-            cursor: 'pointer',
-            padding: '4px'
-          }}
-        >
-          <ArrowLeft size={24} />
-        </button>
-        <h1 style={{
-          fontSize: '24px',
-          fontWeight: '700',
-          marginTop: '16px',
-          textAlign: 'center'
-        }}>
-          {getWorkoutTitle()} - Day {day}
-        </h1>
-        <p style={{
-          color: '#ea384c',
-          fontSize: '14px',
-          textAlign: 'center',
-          marginTop: '8px'
-        }}>
-          {exercises.length} Exercises • {estimateDuration()} min
-        </p>
-      </div>
+    <div style={{ minHeight: '100vh', backgroundColor: 'black' }}>
+      <Navbar2 />
 
-      {/* Error Message */}
-      {error && (
-        <div style={{
-          backgroundColor: '#ffebee',
-          color: '#c62828',
-          padding: '12px',
-          margin: '16px',
-          borderRadius: '4px',
-          textAlign: 'center'
-        }}>
-          {error}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px 16px' }}>
+        <div style={{ marginBottom: '24px' }}>
+          <Link 
+            to={`/training/${trainingId}`} 
+            style={{ color: 'white', display: 'flex', alignItems: 'center', marginBottom: '16px', textDecoration: 'none' }}
+          >
+            <ArrowLeft size={20} style={{ marginRight: '8px' }} /> Back
+          </Link>
+
+          <h1 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', marginBottom: '4px', color: 'white' }}>
+            Strength Training - Day {dayNumber}
+          </h1>
+
+          <p style={{ color: '#ff4d4d', textAlign: 'center' }}>
+            {exercises.length} Exercises • {exercises.length * 2} min
+          </p>
         </div>
-      )}
 
-      {/* Exercises List */}
-      <div style={{ marginTop: '16px' }}>
-        {exercises.map((exercise, index) => (
-          <div 
-            key={`${exercise.id}-${index}`}
+        <div style={{ backgroundColor: 'black', borderRadius: '8px' }}>
+          {exercises.map((exercise) => (
+            <ExerciseItem
+              key={exercise.id}
+              id={exercise.id}
+              name={exercise.name}
+              image={exercise.image}
+              tags={exercise.tags}
+              reps={exercise.reps}
+              completed={exercise.completed}
+            />
+          ))}
+        </div>
+
+        <div style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          padding: '16px',
+          backgroundColor: 'black',
+          borderTop: '1px solid #2c2c2c'
+        }}>
+          <button 
+            onClick={startWorkout}
             style={{
-              display: 'flex',
-              alignItems: 'center',
+              width: '100%',
+              backgroundColor: '#ff4d4d',
+              color: 'white',
               padding: '16px',
-              borderBottom: '1px solid #333',
-              transition: 'background-color 0.2s ease',
-              ':hover': {
-                backgroundColor: '#1f1f1f'
-              }
+              borderRadius: '9999px', // full rounded
+              fontWeight: 'bold',
+              border: 'none',
+              cursor: 'pointer'
             }}
           >
-            <div style={{
-              width: '60px',
-              height: '60px',
-              borderRadius: '8px',
-              overflow: 'hidden',
-              marginRight: '16px',
-              flexShrink: 0
-            }}>
-              <img 
-                src={exercise.gifUrl || '/placeholder-exercise.gif'} 
-                alt={exercise.name}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }} 
-              />
-            </div>
-            <div style={{ flex: 1 }}>
-              <h3 style={{
-                fontSize: '16px',
-                fontWeight: '600',
-                marginBottom: '4px',
-                textTransform: 'capitalize'
-              }}>
-                {exercise.name.toLowerCase()}
-              </h3>
-              <div style={{
-                display: 'flex',
-                gap: '8px',
-                flexWrap: 'wrap'
-              }}>
-                <span style={{
-                  backgroundColor: '#333',
-                  color: '#aaa',
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  fontSize: '12px'
-                }}>
-                  {exercise.equipment || 'Body Weight'}
-                </span>
-                <span style={{
-                  backgroundColor: '#333',
-                  color: '#aaa',
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  fontSize: '12px'
-                }}>
-                  {exercise.target || 'Full Body'}
-                </span>
-              </div>
-            </div>
-            <div style={{
-              marginLeft: '8px',
-              color: '#ea384c',
-              fontWeight: 'bold'
-            }}>
-              {exercise.target === 'cardio' ? '30s' : 'x12'}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Start Button */}
-      <div style={{
-        position: 'fixed',
-        bottom: '0',
-        left: '0',
-        right: '0',
-        padding: '16px',
-        backgroundColor: '#111',
-        boxShadow: '0 -2px 10px rgba(0,0,0,0.5)'
-      }}>
-        <button 
-          style={{
-            backgroundColor: '#ea384c',
-            color: 'white',
-            border: 'none',
-            borderRadius: '50px',
-            padding: '16px',
-            width: '100%',
-            fontWeight: '600',
-            cursor: 'pointer',
-            transition: 'background-color 0.2s ease',
-            ':hover': {
-              backgroundColor: '#ff4757'
-            }
-          }}
-          onClick={() => alert('Starting workout!')}
-        >
-          Start Workout
-        </button>
+            Start Workout
+          </button>
+        </div>
       </div>
     </div>
   );
