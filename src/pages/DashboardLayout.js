@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import './Workouts';
@@ -6,6 +6,28 @@ import './Nutrition';
 
 const DashboardLayout = ({ data, onResetSummary }) => {
   const navigate = useNavigate();
+  const [showChallenges, setShowChallenges] = useState(false);
+
+  // Sample list of daily challenges
+  const challenges = [
+    "Complete a 10-minute meditation session",
+    "Write a 500-word journal entry",
+    "Take a 30-minute walk outdoors",
+    "Learn a new word and use it in a sentence",
+    "Cook a healthy meal from scratch",
+    "Read a chapter from a book",
+    "Practice a new skill for 15 minutes",
+    "Do a 20-minute workout"
+  ];
+
+  // Function to get 4-5 random challenges
+  const getDailyChallenges = () => {
+    const shuffled = challenges.sort(() => 0.5 - Math.random());
+    const count = Math.floor(Math.random() * 2) + 4; // Randomly select 4 or 5
+    return shuffled.slice(0, count);
+  };
+
+  const dailyChallenges = getDailyChallenges();
 
   const handleReset = () => {
     // Call the parent component's reset function
@@ -24,7 +46,14 @@ const DashboardLayout = ({ data, onResetSummary }) => {
         <h1 className="greeting">Hi, {data.name}! Hope you're doing well!</h1>
         <p className="subtext">Your progress is looking good! Keep up the good work!</p>
       </div>
-
+      <div className="daily-challenges-container">
+          <button
+            className="daily-challenges-btn"
+            onClick={() => setShowChallenges(true)}
+          >
+            Daily Challenges
+          </button>
+        </div>
       <div className="summary-section">
         <div className="summary-card">
           <div className="summary-header">
@@ -62,7 +91,6 @@ const DashboardLayout = ({ data, onResetSummary }) => {
         </div>
       </div>
 
-      {/* Rest of your component remains the same */}
       {/* Workouts */}
       <div className="section">
         <div className="section-header">
@@ -118,6 +146,25 @@ const DashboardLayout = ({ data, onResetSummary }) => {
           ))}
         </div>
       </div>
+
+      {showChallenges && (
+        <div className="daily-challenges-modal">
+          <div className="daily-challenges-modal-content">
+            <h2 className="daily-challenges-title">Daily Challenges</h2>
+            <ul className="daily-challenges-list">
+              {dailyChallenges.map((challenge, index) => (
+                <li key={index} className="daily-challenges-item">{challenge}</li>
+              ))}
+            </ul>
+            <button
+              className="daily-challenges-close-btn"
+              onClick={() => setShowChallenges(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

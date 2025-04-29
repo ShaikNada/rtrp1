@@ -3,14 +3,27 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import React from "react";
 
-const MealCard = ({ id, title, calories, time, image, isFavorite = false }) => {
-  const [favorite, setFavorite] = useState(isFavorite);
 
-  const handleFavorite = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setFavorite(!favorite);
-  };
+  const MealCard = ({ 
+    id, 
+    title, 
+    calories, 
+    time, 
+    image, 
+    isFavorite = false, 
+    onFavoriteToggle 
+  }) => {
+    const [favorite, setFavorite] = useState(isFavorite);
+  
+    const handleFavorite = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const newFavoriteState = !favorite;
+      setFavorite(newFavoriteState);
+      if (onFavoriteToggle) {
+        onFavoriteToggle(newFavoriteState);
+      }
+    };
 
   // Inline styles
   const styles = {

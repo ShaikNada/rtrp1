@@ -14,7 +14,7 @@ import MythBusters from './pages/MythBusters';
 import AIRecommendations from './pages/AIRecommendations';
 import Settings from './pages/Settings';
 import AllWorkouts from './pages/AllWorkouts';
-
+import CustomWorkoutPage from './pages/CustomWorkoutPage';
 import ActiveWorkout from './pages/ActiveWorkout';
 
 // Newly added pages
@@ -77,6 +77,7 @@ function App() {
           <Route path="/training/:id/day/:day/workout/:exerciseId" element={<ActiveWorkout />} />
           <Route path="/category/:categoryId/exercises" element={<CategoryExercises />} />
           <Route path="/workout/:categoryId/:exerciseId" element={<CategoryWorkout />} />
+          <Route path="/custom-workout/:id" element={<CustomWorkoutPage />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
       </Routes>
     </Router>

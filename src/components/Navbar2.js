@@ -42,10 +42,7 @@ function Navbar2() {
       </div>
 
       <div className="navbar-actions">
-        <div className="notification-icon">
-          <Bell className="icon" />
-          <span className="notification-badge">2</span>
-        </div>
+        
         <div className="profile-icon">
           <Link to="/settings">
             <img src={profilePic} alt="Profile" className="profile-img" />
