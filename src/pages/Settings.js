@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar2 from '../components/Navbar2';
 import { Moon, Sun } from 'lucide-react';
 import './Settings.css';
 
 function Settings() {
+  const navigate = useNavigate();
+
   const [darkMode, setDarkMode] = useState(true);
   const [name, setName] = useState('');
   const [height, setHeight] = useState('');
@@ -16,8 +19,11 @@ function Settings() {
     setName(savedSettings.name || '');
     setHeight(savedSettings.height || 0);
     setWeight(savedSettings.weight || 0);
-    
-    setSelectedGoal(savedSettings.goal || '');setProfilePic(savedSettings.profilePic || 'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740');
+    setSelectedGoal(savedSettings.goal || '');
+    setProfilePic(
+      savedSettings.profilePic ||
+        'https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_hybrid&w=740'
+    );
     setDarkMode(savedSettings.darkMode ?? true);
   }, []);
 
@@ -43,6 +49,11 @@ function Settings() {
     };
     localStorage.setItem('fitnessSettings', JSON.stringify(settings));
     alert('Settings saved successfully!');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('fitnessSettings'); // optional: clear settings if needed
+    navigate('/'); // replace '/' with your login or start page path if needed
   };
 
   return (
@@ -139,9 +150,17 @@ function Settings() {
             </div>
           </div>
 
-          <button className="save-settings-button" onClick={handleSave}>
-            Save Changes
-          </button>
+          <div className="buttons-group">
+            <button className="save-settings-button" onClick={handleSave}>
+              Save Changes
+            </button>
+
+            {/* Logout Button */}
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+
         </div>
       </div>
     </div>

@@ -3,18 +3,52 @@ import DashboardLayout from '../pages/DashboardLayout';
 const D3 = ({ userName }) => {
   // Get workout stats from localStorage
   const today = new Date().toISOString().split('T')[0];
-  const workoutStats = JSON.parse(localStorage.getItem('workoutStats')) || {};
-  const nutritionStats = JSON.parse(localStorage.getItem('nutritionStats')) || {};
   
-  const todayWorkouts = workoutStats[today] || {
-    completedExercises: 0,
-    totalCaloriesBurned: 0
+  const getWorkoutStats = () => {
+    const workoutStats = JSON.parse(localStorage.getItem('workoutStats')) || {};
+    return workoutStats[today] || {
+      completedExercises: 0,
+      totalCaloriesBurned: 0
+    };
   };
-  
-  const todayNutrition = nutritionStats[today] || {
-    caloriesConsumed: 0,
-    mealsLogged: 0
+
+  const getNutritionStats = () => {
+    const nutritionStats = JSON.parse(localStorage.getItem('nutritionStats')) || {};
+    return nutritionStats[today] || {
+      caloriesConsumed: 0,
+      mealsLogged: 0
+    };
   };
+
+  const resetTodayStats = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const workoutStats = JSON.parse(localStorage.getItem('workoutStats')) || {};
+    const nutritionStats = JSON.parse(localStorage.getItem('nutritionStats')) || {};
+    
+    // Reset workout stats
+    workoutStats[today] = {
+      completedExercises: 0,
+      totalCaloriesBurned: 0
+    };
+    
+    // Reset nutrition stats
+    nutritionStats[today] = {
+      caloriesConsumed: 0,
+      mealsLogged: 0
+    };
+    
+    localStorage.setItem('workoutStats', JSON.stringify(workoutStats));
+    localStorage.setItem('nutritionStats', JSON.stringify(nutritionStats));
+    
+    // Return the reset data
+    return {
+      workoutStats: workoutStats[today],
+      nutritionStats: nutritionStats[today]
+    };
+  };
+
+  const todayWorkouts = getWorkoutStats();
+  const todayNutrition = getNutritionStats();
 
   const data = {
     name: userName || "User",
@@ -56,7 +90,14 @@ const D3 = ({ userName }) => {
     ]
   };
 
-  return <DashboardLayout data={data} />;
+  const handleResetSummary = () => {
+    const resetStats = resetTodayStats();
+    // You'll need to force a re-render here
+    // In a real app, you might want to use state management
+    window.location.reload(); // Simple solution for now
+  };
+
+  return <DashboardLayout data={data} onResetSummary={handleResetSummary} />;
 };
 
 export default D3;

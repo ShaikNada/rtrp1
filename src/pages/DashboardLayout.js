@@ -4,8 +4,19 @@ import './Dashboard.css';
 import './Workouts';
 import './Nutrition';
 
-const DashboardLayout = ({ data }) => {
+const DashboardLayout = ({ data, onResetSummary }) => {
   const navigate = useNavigate();
+
+  const handleReset = () => {
+    // Call the parent component's reset function
+    if (onResetSummary) {
+      onResetSummary({
+        calories: 0,
+        workouts: 0,
+        // Add any other fields you want to reset here
+      });
+    }
+  };
 
   return (
     <div className="dashboard-container">
@@ -16,7 +27,10 @@ const DashboardLayout = ({ data }) => {
 
       <div className="summary-section">
         <div className="summary-card">
-          <h2 className="summary-title">TODAY'S SUMMARY</h2>
+          <div className="summary-header">
+            <h2 className="summary-title">TODAY'S SUMMARY</h2>
+            <button className="reset-btn" onClick={handleReset}>Reset</button>
+          </div>
           <div className="summary-stats">
             <div className="stat">
               <p className="stat-label">Steps</p>
@@ -48,6 +62,7 @@ const DashboardLayout = ({ data }) => {
         </div>
       </div>
 
+      {/* Rest of your component remains the same */}
       {/* Workouts */}
       <div className="section">
         <div className="section-header">
