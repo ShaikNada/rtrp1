@@ -3,15 +3,18 @@ import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Navbar2 from '../components/Navbar2';
 import ExerciseItem from '../components/ExerciseItem';
-
-// Mock exercises data
+import pushupImage from '../images/pushup.jpeg';
+import pullupImage from '../images/pullup.jpeg';
+import squatsImage from '../images/squats.jpeg';
+import planksImage from '../images/plank.png';
+import downloadImage from '../images/download.png';
 const exercisesData = {
   'build-muscle': {
     1: [
       {
         id: 'push-ups',
         name: 'Push-Ups',
-        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: pushupImage,
         reps: 12,
         tags: ['body weight', 'pectorals'],
         completed: false,
@@ -19,7 +22,7 @@ const exercisesData = {
       {
         id: 'pull-ups',
         name: 'Pull-Ups',
-        image: 'https://www.dmoose.com/cdn/shop/articles/MicrosoftTeams-image_7.jpg?v=1691501915',
+        image: pullupImage,
         reps: 12,
         tags: ['body weight', 'lats'],
         completed: false,
@@ -27,7 +30,7 @@ const exercisesData = {
       {
         id: 'squats',
         name: 'Squats',
-        image: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: squatsImage,
         reps: 15,
         tags: ['body weight', 'legs'],
         completed: false,
@@ -35,7 +38,7 @@ const exercisesData = {
       {
         id: 'lunges',
         name: 'Lunges',
-        image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: downloadImage,
         reps: 12,
         tags: ['body weight', 'legs'],
         completed: false,
@@ -43,7 +46,7 @@ const exercisesData = {
       {
         id: 'planks',
         name: 'Planks',
-        image: 'https://images.unsplash.com/photo-1566241134883-13eb2393a3cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: planksImage,
         reps: 30,
         tags: ['body weight', 'core'],
         completed: false,

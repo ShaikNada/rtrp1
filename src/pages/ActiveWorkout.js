@@ -1,49 +1,63 @@
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
-
+import pushupImage from '../images/pushupvid.gif'; 
+import pullImage from '../images/pullupvid.gif';
+import squatsImage from '../images/squatvid.gif';
+import LungeImage from '../images/lungesvid.gif';
+import plankImage from '../images/planksvid.gif';
 const exercisesData = {
   'build-muscle': {
     1: [
       {
         id: 'push-ups',
         name: 'Push-Ups',
-        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: pushupImage,
         reps: 12,
         tags: ['body weight', 'pectorals'],
         completed: false,
+        instructions:
+          'Start in a plank position with hands shoulder-width apart. Lower your body until your chest nearly touches the floor, then push back up.',
       },
       {
         id: 'pull-ups',
         name: 'Pull-Ups',
-        image: 'https://www.dmoose.com/cdn/shop/articles/MicrosoftTeams-image_7.jpg?v=1691501915',
+        image: pullImage,
         reps: 12,
         tags: ['body weight', 'lats'],
         completed: false,
+        instructions:
+          'Grab the bar with palms facing away. Hang with arms fully extended. Pull yourself up until your chin clears the bar, then lower slowly.',
       },
       {
         id: 'squats',
         name: 'Squats',
-        image: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: squatsImage,
         reps: 15,
         tags: ['body weight', 'legs'],
         completed: false,
+        instructions:
+          'Stand with feet shoulder-width apart. Lower your body by bending knees and pushing hips back. Keep chest up and knees over toes.',
       },
       {
         id: 'lunges',
         name: 'Lunges',
-        image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: LungeImage,
         reps: 12,
         tags: ['body weight', 'legs'],
         completed: false,
+        instructions:
+          'Step forward with one leg and lower hips until both knees are bent at 90 degrees. Push back up to starting position.',
       },
       {
         id: 'planks',
         name: 'Planks',
-        image: 'https://images.unsplash.com/photo-1566241134883-13eb2393a3cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+        image: plankImage,
         reps: 30,
         tags: ['body weight', 'core'],
         completed: false,
+        instructions:
+          'Hold a push-up position with weight on forearms. Keep body straight from head to heels. Engage core and hold position.',
       },
     ],
   },
@@ -57,7 +71,7 @@ const ActiveWorkout = () => {
   const dayNumber = day ? parseInt(day) : 1;
 
   const exercises = exercisesData[trainingId]?.[dayNumber] || [];
-  const currentExerciseIndex = exercises.findIndex(ex => ex.id === exerciseId);
+  const currentExerciseIndex = exercises.findIndex((ex) => ex.id === exerciseId);
   const currentExercise = exercises[currentExerciseIndex];
 
   const handleComplete = () => {
@@ -85,19 +99,25 @@ const ActiveWorkout = () => {
     if (currentExerciseIndex === exercises.length - 1) {
       navigate(`/training/${trainingId}/day/${dayNumber}/exercises`);
     } else {
-      navigate(`/training/${trainingId}/day/${dayNumber}/workout/${exercises[currentExerciseIndex + 1].id}`);
+      navigate(
+        `/training/${trainingId}/day/${dayNumber}/workout/${exercises[currentExerciseIndex + 1].id}`
+      );
     }
   };
 
   const handlePrevious = () => {
     if (currentExerciseIndex > 0) {
-      navigate(`/training/${trainingId}/day/${dayNumber}/workout/${exercises[currentExerciseIndex - 1].id}`);
+      navigate(
+        `/training/${trainingId}/day/${dayNumber}/workout/${exercises[currentExerciseIndex - 1].id}`
+      );
     }
   };
 
   const handleNext = () => {
     if (currentExerciseIndex < exercises.length - 1) {
-      navigate(`/training/${trainingId}/day/${dayNumber}/workout/${exercises[currentExerciseIndex + 1].id}`);
+      navigate(
+        `/training/${trainingId}/day/${dayNumber}/workout/${exercises[currentExerciseIndex + 1].id}`
+      );
     }
   };
 
@@ -114,13 +134,7 @@ const ActiveWorkout = () => {
           justifyContent: 'center',
         }}
       >
-        <p
-          style={{
-            textAlign: 'center',
-            marginTop: '20px',
-            fontSize: '18px',
-          }}
-        >
+        <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '18px' }}>
           Exercise not found
         </p>
         <Link
@@ -128,8 +142,6 @@ const ActiveWorkout = () => {
           style={{
             color: 'red',
             textDecoration: 'underline',
-            display: 'block',
-            textAlign: 'center',
             marginTop: '8px',
             fontSize: '16px',
           }}
@@ -153,26 +165,13 @@ const ActiveWorkout = () => {
       }}
     >
       {/* Back Button */}
-      <div
-        style={{
-          padding: '16px',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'flex-start',
-        }}
-      >
-        <Link
-          to={`/training/${trainingId}/day/${dayNumber}/exercises`}
-          style={{
-            color: '#ffffff',
-            textDecoration: 'none',
-          }}
-        >
+      <div style={{ padding: '16px', width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
+        <Link to={`/training/${trainingId}/day/${dayNumber}/exercises`} style={{ color: '#ffffff' }}>
           <ArrowLeft size={24} color="#ffffff" />
         </Link>
       </div>
 
-      {/* Main Exercise */}
+      {/* Main Content */}
       <div
         style={{
           display: 'flex',
@@ -182,70 +181,51 @@ const ActiveWorkout = () => {
           padding: '16px',
           flex: 1,
           justifyContent: 'center',
+          width: '100%',
         }}
       >
-        <h2
-          style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
-            margin: '0',
-          }}
-        >
+        <h2 style={{ fontSize: '24px', fontWeight: 'bold', textTransform: 'uppercase' }}>
           {currentExercise.name}
         </h2>
-        <p
-          style={{
-            fontSize: '48px',
-            fontWeight: 'bold',
-            color: 'red',
-            margin: '0',
-          }}
-        >
+        <p style={{ fontSize: '48px', fontWeight: 'bold', color: 'red' }}>
           {currentExercise.reps}
         </p>
-        <img
-          src={currentExercise.image}
-          alt={currentExercise.name}
+
+        {/* Image */}
+        <div
           style={{
             width: '100%',
-            maxWidth: '300px',
-            height: 'auto',
+            maxWidth: '400px',
             borderRadius: '8px',
+            overflow: 'hidden',
+            backgroundColor: '#1a1a1a',
           }}
-        />
+        >
+          <img
+            src={currentExercise.image}
+            alt={currentExercise.name}
+            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+          />
+        </div>
+
+        {/* Instructions */}
         <div
           style={{
             backgroundColor: '#1a1a1a',
             padding: '16px',
             borderRadius: '8px',
-            maxWidth: '300px',
+            maxWidth: '400px',
             width: '100%',
           }}
         >
-          <h3
-            style={{
-              fontSize: '16px',
-              fontWeight: 'bold',
-              marginBottom: '8px',
-            }}
-          >
+          <h3 style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '8px' }}>
             Instructions:
           </h3>
-          <p
-            style={{
-              fontSize: '14px',
-              lineHeight: '1.5',
-              margin: '0',
-            }}
-          >
-            Start in a plank position with hands slightly wider than shoulder-width.
-            Lower your body until your chest nearly touches the floor, then push back up.
-          </p>
+          <p style={{ fontSize: '14px', lineHeight: '1.5' }}>{currentExercise.instructions}</p>
         </div>
       </div>
 
-      {/* Footer with Navigation and Button */}
+      {/* Navigation */}
       <div
         style={{
           display: 'flex',
@@ -267,10 +247,7 @@ const ActiveWorkout = () => {
             padding: '8px',
           }}
         >
-          <ArrowLeft
-            size={24}
-            color={currentExerciseIndex === 0 ? '#666' : '#ffffff'}
-          />
+          <ArrowLeft size={24} color={currentExerciseIndex === 0 ? '#666' : '#ffffff'} />
         </button>
 
         <button
@@ -290,19 +267,8 @@ const ActiveWorkout = () => {
           Mark as Done
         </button>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-          }}
-        >
-          <span
-            style={{
-              fontSize: '14px',
-              color: '#ffffff',
-            }}
-          >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '14px', color: '#ffffff' }}>
             {currentExerciseIndex + 1}/{exercises.length}
           </span>
           <button

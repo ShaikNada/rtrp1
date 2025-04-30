@@ -4,6 +4,7 @@ import rbgImage from '../images/rbg.png';
 
 const About = ({ showSignUpForm, setShowSignUpForm }) => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,15 +14,42 @@ const About = ({ showSignUpForm, setShowSignUpForm }) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-    
+
+    // Validate inputs
+    if (!username || !email || !password) {
+      setError('Please fill in all fields');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 800));
-      localStorage.setItem("userEmail", email);
-      localStorage.setItem("userName", email.split('@')[0]);
+      const endpoint = showSignUpForm ? '/signup' : '/login';
+      const response = await fetch(`http://localhost:5000${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username,
+          email: email.toLowerCase().trim(),
+          password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!data.message) {
+        setError(data.message || 'Authentication failed');
+        setIsLoading(false);
+        return;
+      }
+
+      // On success
+      localStorage.setItem('userEmail', data.user.email);
+      localStorage.setItem('userName', data.user.username);
       navigate('/dashboards');
+      
     } catch (err) {
-      setError('An error occurred. Please try again.');
-    } finally {
+      console.error('Auth error:', err);
+      setError('Network error. Please try again.');
       setIsLoading(false);
     }
   };
@@ -40,9 +68,8 @@ const About = ({ showSignUpForm, setShowSignUpForm }) => {
       backgroundAttachment: "fixed",
       padding: "20px"
     }}>
-      {/* KEEPING ORIGINAL HEADER STYLES */}
-      <div style={{ 
-        textAlign: "center", 
+      <div style={{
+        textAlign: "center",
         marginBottom: "50px",
         maxWidth: "800px"
       }}>
@@ -68,7 +95,6 @@ const About = ({ showSignUpForm, setShowSignUpForm }) => {
         </p>
       </div>
 
-      {/* COMPACT FORM STYLES */}
       <form onSubmit={handleSubmit} style={{
         display: "flex",
         flexDirection: "column",
@@ -104,6 +130,15 @@ const About = ({ showSignUpForm, setShowSignUpForm }) => {
         )}
 
         <input
+          type="text"
+          placeholder="Username"
+          style={inputStyle}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+
+        <input
           type="email"
           placeholder="Email"
           style={inputStyle}
@@ -119,6 +154,7 @@ const About = ({ showSignUpForm, setShowSignUpForm }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          minLength="6"
         />
 
         <button
@@ -129,18 +165,18 @@ const About = ({ showSignUpForm, setShowSignUpForm }) => {
           {isLoading ? "Processing..." : (showSignUpForm ? "Sign Up" : "Login")}
         </button>
 
-        <p style={{ 
-          color: 'rgba(255,255,255,0.8)', 
-          textAlign: 'center', 
+        <p style={{
+          color: 'rgba(255,255,255,0.8)',
+          textAlign: 'center',
           margin: "10px 0 0",
           fontSize: "13px"
         }}>
           {showSignUpForm ? "Already have an account?" : "Don't have an account?"}
           <span
             onClick={() => setShowSignUpForm(!showSignUpForm)}
-            style={{ 
-              color: 'red', 
-              cursor: 'pointer', 
+            style={{
+              color: 'red',
+              cursor: 'pointer',
               marginLeft: '6px',
               fontWeight: "600"
             }}
@@ -163,10 +199,7 @@ const inputStyle = {
   width: "100%",
   boxSizing: "border-box",
   outline: "none",
-  transition: "border 0.2s ease",
-  ':focus': {
-    border: "1px solid rgba(255,255,255,0.4)"
-  }
+  transition: "border 0.2s ease"
 };
 
 const buttonStyle = {
@@ -179,10 +212,7 @@ const buttonStyle = {
   cursor: "pointer",
   width: "100%",
   fontSize: "14px",
-  transition: "background-color 0.2s ease",
-  ':hover': {
-    backgroundColor: "#d40000"
-  }
+  transition: "background-color 0.2s ease"
 };
 
 export default About;
