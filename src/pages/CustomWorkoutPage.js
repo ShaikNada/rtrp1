@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Check, ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
-
+import squatsImage from '../images/squatvid.gif';
+import pushupImage from '../images/pushupvid.gif';
+import wallpush from '../images/wallpush.gif';
+import lungesvid from '../images/lungesvid.gif';
+import planksvid from '../images/planksvid.gif';
+import dumbellrow from '../images/dumbellrow.gif';
+import sit from '../images/seatedlift.gif'
 const exerciseGifs = {
-  'Bodyweight Squats': 'https://media.giphy.com/media/3o6Zt6KHxJTpJiDg7S/giphy.gif',
-  'Wall Push-ups': 'https://media.giphy.com/media/l0HU20BZ6LbSEITza/giphy.gif',
+  'Bodyweight Squats': squatsImage,
+  'Wall Push-ups': wallpush,
   'Seated Leg Raises': 'https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif',
-  'Push-ups': 'https://media.giphy.com/media/l2JHPB58MjfV8W3K0/giphy.gif',
-  'Lunges': 'https://media.giphy.com/media/3o6Zt8qD8YvZq4Y3WM/giphy.gif',
-  'Plank': 'https://media.giphy.com/media/xT5LMHxhOfscxPfIfm/giphy.gif',
+  'Push-ups':pushupImage,
+  'Lunges': lungesvid,
+  'Plank': planksvid,
   'Burpees': 'https://media.giphy.com/media/3o6Zt6KHxJTpJiDg7S/giphy.gif',
   'Jump Squats': 'https://media.giphy.com/media/3o6Zt6KHxJTpJiDg7S/giphy.gif',
+  'Dumbbell Rows': dumbellrow,
+  'Seated Leg Raises':sit,
   'default': 'https://media.giphy.com/media/3o7TKsrf4eB3ctXvUQ/giphy.gif'
 };
 

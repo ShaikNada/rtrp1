@@ -1,3 +1,12 @@
+import food from '../images/food.jpeg';
+import food2 from '../images/food2.jpeg';
+import food3 from '../images/food3.jpeg';
+import food4 from '../images/food4.jpeg';
+import food5 from '../images/food5.jpeg';
+import food6 from '../images/food6.jpeg';
+import food7 from '../images/food7.jpeg';
+import food8 from '../images/food8.jpeg';
+import food9 from '../images/food9.jpeg';
 export const meals = [
   {
     id: '1',
@@ -117,7 +126,7 @@ export const meals = [
     title: 'Quinoa Salmon Bowl',
     calories: 480,
     time: 30,
-    image: 'https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=1100&auto=format&fit=crop',
+    image: food,
     protein: 28,
     fat: 16,
     carbs: 39,
@@ -156,7 +165,7 @@ export const meals = [
     title: 'Greek Yogurt with Berries',
     calories: 240,
     time: 5,
-    image: 'https://images.unsplash.com/photo-1514693328041-c8fd9a7e63c?q=80&w=1170&auto=format&fit=crop',
+    image: food2,
     protein: 15,
     fat: 8,
     carbs: 28,
@@ -380,7 +389,7 @@ export const meals = [
     title: 'Sweet Potato & Black Bean Tacos',
     calories: 450,
     time: 30,
-    image: 'https://images.unsplash.com/photo-1592966144418-90d9f3bc3e3b?q=80&w=1100&auto=format&fit=crop',
+    image: food4,
     protein: 18,
     fat: 12,
     carbs: 68,
@@ -421,7 +430,7 @@ export const meals = [
     title: 'Teriyaki Salmon with Bok Choy',
     calories: 520,
     time: 25,
-    image: 'https://images.unsplash.com/photo-1568684499140-7a0d91ea0e6e?q=80&w=1100&auto=format&fit=crop',
+    image: food9,
     protein: 36,
     fat: 22,
     carbs: 38,
@@ -460,7 +469,7 @@ export const meals = [
     title: 'Protein Pancakes with Almond Butter',
     calories: 380,
     time: 15,
-    image: 'https://images.unsplash.com/photo-1532980400573-971d65d43a47?q=80&w=1100&auto=format&fit=crop',
+    image: food3,
     protein: 28,
     fat: 14,
     carbs: 38,
@@ -536,7 +545,7 @@ export const meals = [
     title: 'Zucchini Noodles with Pesto',
     calories: 290,
     time: 15,
-    image: 'https://images.unsplash.com/photo-1529563021893-cc83c992d00d?q=80&w=1170&auto=format&fit=crop',
+    image: food5,
     protein: 8,
     fat: 22,
     carbs: 18,
@@ -574,7 +583,7 @@ export const meals = [
     title: 'Avocado & Tahini Salad',
     calories: 420,
     time: 10,
-    image: 'https://images.unsplash.com/photo-1561047029-3b0c2b8720b5?q=80&w=1100&auto=format&fit=crop',
+    image: food6,
     protein: 8,
     fat: 38,
     carbs: 12,
@@ -646,7 +655,7 @@ export const meals = [
     title: 'Coconut Chia Pudding',
     calories: 320,
     time: 5,
-    image: 'https://images.unsplash.com/photo-1609951651556-5334e2706168?q=80&w=1170&auto=format&fit=crop',
+    image: food8,
     protein: 6,
     fat: 28,
     carbs: 10,
@@ -713,7 +722,7 @@ export const meals = [
     title: 'Walnut "Taco Meat" Lettuce Wraps',
     calories: 410,
     time: 15,
-    image: 'https://images.unsplash.com/photo-1618162499384-45b9f0a67c37?q=80&w=1100&auto=format&fit=crop',
+    image: food7,
     protein: 10,
     fat: 36,
     carbs: 12,

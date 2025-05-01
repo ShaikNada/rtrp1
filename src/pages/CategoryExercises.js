@@ -2,13 +2,15 @@ import { ArrowLeft } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Navbar2 from '../components/Navbar2';
 import ExerciseItem from '../components/ExerciseItem';
-
+import benchpress from '../images/benchpress.gif';
+import deadlift from '../images/deadlift.gif';
+import squats from '../images/squatvid.gif';
 // Mock category exercises data
 const categoryExercises = {
   'strength': [
-    { id: 'bench-press', name: 'Bench Press', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b', reps: 12, tags: ['chest', 'strength'], completed: false },
-    { id: 'deadlift', name: 'Deadlift', image: 'https://www.onthegofitnesspro.com/wp-content/uploads/2019/07/AdobeStock_363136767-scaled.jpeg', reps: 10, tags: ['back', 'strength'], completed: false },
-    { id: 'squats', name: 'Squats', image: 'https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a', reps: 15, tags: ['legs', 'strength'], completed: false },
+    { id: 'bench-press', name: 'Bench Press', image: benchpress, reps: 12, tags: ['chest', 'strength'], completed: false },
+    { id: 'deadlift', name: 'Deadlift', image: deadlift, reps: 10, tags: ['back', 'strength'], completed: false },
+    { id: 'squats', name: 'Squats', image: squats, reps: 15, tags: ['legs', 'strength'], completed: false },
     { id: 'shoulder-press', name: 'Shoulder Press', image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5', reps: 10, tags: ['shoulders', 'strength'], completed: false },
   ],
   'cardio': [

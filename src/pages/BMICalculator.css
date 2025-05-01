@@ -1,9 +1,9 @@
+/* Existing CSS from previous artifact */
 .app-container {
   font-family: 'Segoe UI', sans-serif;
   background-color: #000;
   color: #ff4d5a;
   min-height: 100vh;
-  
 }
 
 .page-title {
@@ -40,15 +40,34 @@
   padding: 10px;
   font-size: 1rem;
   color: #fff;
-
+  background-color: #222;
+  border: 1px solid #ff4d5a;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .bmi-input:focus {
-  border-style: solid;
-  border-width: 1px;
-  border-color:#ccc;
-  border-radius: 8px;
+  border-color: #ccc;
   outline: none;
+}
+
+.bmi-input[type="number"]::-webkit-inner-spin-button,
+.bmi-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.bmi-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.bmi-input select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6"><path fill="#ff4d5a" d="M0 0h12l-6 6z"/></svg>') no-repeat right 10px center;
+  background-size: 12px;
 }
 
 .calculate-btn {
@@ -60,11 +79,11 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: background-color  amd 0.3s ease;
 }
 
 .calculate-btn:hover {
-  background-color: #ff4d5a;
+  background-color: #e53935;
 }
 
 .bmi-result {
@@ -102,6 +121,16 @@
   color: #ff4d5a;
 }
 
+.bmi-details {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.bmi-details p {
+  margin: 5px 0;
+}
+
 .bmi-scale {
   margin-top: 20px;
 }
@@ -116,6 +145,7 @@
   justify-content: space-between;
   font-size: 0.9rem;
   margin: 8px 0;
+  color: #ccc;
 }
 
 .scale-bar {
@@ -143,8 +173,22 @@
   border-top: 1px solid #ff4d5a;
 }
 
+.bmi-description h3 {
+  color: #ff4d5a;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
 .bmi-description p {
   color: #ccc;
   font-size: 1rem;
   line-height: 1.6;
+}
+
+/* New style for error message */
+.error-message {
+  color: #ff4d5a;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  text-align: center;
 }
